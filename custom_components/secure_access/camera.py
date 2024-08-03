@@ -30,5 +30,5 @@ class ASCamera(MjpegCamera):
             mjpeg_url="http://80.56.142.202:83/mjpg/video.mjpg?camera=1",
             still_image_url="http://80.56.142.202:83/mjpg/video.mjpg?camera=1&timestamp=1722723200017"
         )
-        self._attr_unique_id = f"{self._panel.panel_id}_camera"
+        self._attr_unique_id = f"{panel.panel_id}_camera"
         self._attr_name = panel.name

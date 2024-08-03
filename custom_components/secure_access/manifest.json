@@ -1,7 +1,7 @@
 {
     "domain": "secure_access",
     "name": "Access Panel",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "after_dependencies": [],
     "codeowners": ["@olliejohnson"],
     "dependencies": [],

@@ -32,7 +32,29 @@ class ASCamera(Camera):
     _attr_supported_features = CameraEntityFeature.STREAM
 
     def __init__(self, panel):
-        pass
+        self._panel = panel
+        self._attr_unique_id = f"{self._panel.panel_id}_camera"
+        self._attr_name = self._panel.name
+
+    async def async_added_to_hass(self) -> None:
+        self._panel.register_callback(self.async_write_ha_state)
+
+    async def async_will_remove_from_hass(self) -> None:
+        self._roller.remove_callback(self.async_write_ha_state)
+
+    @property
+    def device_info(self) -> dict:
+        return {
+            "identifiers": {(DOMAIN, self._panel.panel_id)},
+            "name": self.name,
+            "sw_version": self._panel.firmware_version,
+            "model": self._panel.model,
+            "manufacturer": self._panel.server.manufacturer
+        }
+    
+    @property
+    def available(self) -> bool:
+        return self._panel.online and self._panel.server.online
 
     async def stream_source(self) -> str | None:
         return "https://nasa-i.akamaihd.net/hls/live/253565/NTV-Public1/master.m3u8"

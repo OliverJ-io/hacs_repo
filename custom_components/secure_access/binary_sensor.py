@@ -1,21 +1,26 @@
 from homeassistant.components.binary_sensor import (
-    BinarySensorDeviceClass
+    BinarySensorDeviceClass,
+    BinarySensorEntity
 )
-from homeassistant.helpers.entity import Entity
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.helpers.typing import DiscoveryInfoType
 
 from .const import DOMAIN
 from .access_server import AccessServer, AccessPanel
 
-async def async_setup_entry(hass, config_entry, async_add_entities):
+async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities: AddEntitiesCallback):
     access_server: AccessServer = hass.data[DOMAIN][config_entry.entry_id]
 
     new_devices = []
-    new_devices.append(DoorSensor(AccessPanel(f"testingonly_1", f"Panel 1", access_server)))
-    new_devices.append(BypassSensor(AccessPanel(f"testingonly_1", f"Panel 1", access_server)))
+    for panel in access_server.panels:
+        new_devices.append(DoorSensor(panel))
+        new_devices.append(BypassSensor(panel))
     if new_devices:
         async_add_entities(new_devices)
 
-class SensorBase(Entity):
+class SensorBase(BinarySensorEntity):
     should_poll = False
 
     def __init__(self, panel):
@@ -36,7 +41,8 @@ class SensorBase(Entity):
         self._panel.remove_callback(self.async_write_ha_state)
 
 class DoorSensor(SensorBase):
-    device_class = BinarySensorDeviceClass.DOOR
+    _attr_device_class = BinarySensorDeviceClass.DOOR
+    _attr_name = "Door Sensor"
     
     def __init__(self, panel):
         super().__init__(panel)
@@ -50,7 +56,8 @@ class DoorSensor(SensorBase):
         return self._panel.door_state
 
 class BypassSensor(SensorBase):
-    device_class = BinarySensorDeviceClass.SAFETY
+    _attr_device_class = BinarySensorDeviceClass.SAFETY
+    _attr_name = "Bypass Sensor"
     
     def __init__(self, panel):
         super().__init__(panel)

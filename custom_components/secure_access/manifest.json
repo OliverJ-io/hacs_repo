@@ -1,0 +1,22 @@
+{
+    "domain": "secure_access",
+    "name": "Access Panel",
+    "version": "1.0.0",
+    "after_dependencies": [],
+    "codeowners": ["@olliejohnson"],
+    "dependencies": [],
+    "documentation": "https://secure.oliverj.io/ha_docs",
+    "integration_type": "hub",
+    "iot_class": "local_polling",
+    "issue_tracker": "https://github.com/OliverJ-io/secure_access_ha/issues",
+    "loggers": ["saccess"],
+    "requirements": [],
+    "quality_scale": "silver",
+    "config_flow": true,
+    "zeroconf": [],
+    "ssdp": [],
+    "homekit": {},
+    "mqtt": [],
+    "dhcp": [],
+    "usb": []
+}

@@ -7,6 +7,9 @@ from typing import Callable
 from homeassistant.core import HomeAssistant
 
 class AccessServer:
+
+    manufacturer = "OliverJ"
+
     def __init__(self, hass: HomeAssistant, ip: str) -> None:
         self._ip = ip
         self._hass = hass

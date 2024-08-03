@@ -1,12 +1,7 @@
 {
     "config": {
-        "step": {
-            "user": {
-                "data": {
-                    "ip": "[%key:common::config_flow::data::ip%]",
-                    "checkbox": "[%key:common::config_flow::data::checkbox%]"
-                }
-            }
+        "abort": {
+            "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
         },
         "error": {
             "connection_failed": "[%key:common::config_flow::error::connection_failed%]",
@@ -14,8 +9,13 @@
             "no_agreement": "[%key:common::config_flow::error::no_agreement%]",
             "unknown": "[%key:common::config_flow::error::unknown%]"
         },
-        "abort": {
-            "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+        "step": {
+            "user": {
+                "data": {
+                    "ip": "[%key:common::config_flow::data::ip%]",
+                    "checkbox": "[%key:common::config_flow::data::checkbox%]"
+                }
+            }
         }
-    }
+   }
 }

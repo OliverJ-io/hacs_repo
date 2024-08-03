@@ -5,10 +5,9 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.typing import DiscoveryInfoType
 
 from .const import DOMAIN
-from .access_server import AccessServer, AccessPanel
+from .access_server import AccessServer
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities: AddEntitiesCallback):
     access_server: AccessServer = hass.data[DOMAIN][config_entry.entry_id]
@@ -41,14 +40,14 @@ class SensorBase(BinarySensorEntity):
         self._panel.remove_callback(self.async_write_ha_state)
 
 class DoorSensor(SensorBase):
-    _attr_device_class = BinarySensorDeviceClass.DOOR
+    device_class = BinarySensorDeviceClass.LOCK
     
     def __init__(self, panel):
         super().__init__(panel)
 
         self._attr_unique_id = f"{self._panel.panel_id}_lock"
         self._attr_name = f"{self._panel.name} Lock"
-        self._attr_state = self._panel.door_state
+        self._state = self._panel.door_state
     
     @property
     def state(self):

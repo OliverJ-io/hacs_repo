@@ -26,7 +26,7 @@ async def async_setup_entry(
     acs: AccessServer = hass.data[DOMAIN][config_entry.entry_id]
 
     # Add all entities to HA
-    async_add_entities(ASCamera(AccessPanel(f"testingonly_1", f"Panel 1", acs)))
+    async_add_entities([ASCamera(panel) for panel in acs.panels])
 
 class ASCamera(Camera):
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from homeassistant.components.camera import Camera, CameraEntityFeature
+from homeassistant.components.mjpeg import MjpegCamera
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -21,14 +21,12 @@ async def async_setup_entry(
 
     async_add_entities([ASCamera(panel) for panel in acs.panels])
 
-class ASCamera(Camera):
-
-    _attr_supported_features = CameraEntityFeature.STREAM
+class ASCamera(MjpegCamera):
 
     def __init__(self, panel: AccessPanel):
         self._panel = panel
         self._attr_unique_id = f"{self._panel.panel_id}_camera"
         self._attr_name = self._panel.name
     
-    async def stream_source(self) -> str | None:
-        return "rtsp://demo:demo@ipvmdemo.dyndns.org:5541/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast"
+    async def stream_source(self) -> str:
+        return "http://80.56.142.202:83/mjpg/video.mjpg?camera=1"

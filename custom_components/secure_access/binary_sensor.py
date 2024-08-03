@@ -42,14 +42,13 @@ class SensorBase(BinarySensorEntity):
 
 class DoorSensor(SensorBase):
     _attr_device_class = BinarySensorDeviceClass.DOOR
-    _attr_name = "Door Sensor"
     
     def __init__(self, panel):
         super().__init__(panel)
 
         self._attr_unique_id = f"{self._panel.panel_id}_lock"
         self._attr_name = f"{self._panel.name} Lock"
-        self._state = self._panel.door_state
+        self._attr_state = self._panel.door_state
     
     @property
     def state(self):
@@ -63,8 +62,7 @@ class BypassSensor(SensorBase):
         super().__init__(panel)
 
         self._attr_unique_id = f"{self._panel.panel_id}_bypass"
-        self._attr_name = f"{self._panel.name} Bypass"
-        self._state = self._panel.is_bypassed
+        self._attr_state = self._panel.is_bypassed
     
     @property
     def state(self):

@@ -1,0 +1,21 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "ip": "IP",
+                    "checkbox": "Do you agree to the Terms of Service"
+                }
+            }
+        },
+        "error": {
+            "connection_failed": "Could not connect to the server",
+            "invalid_ip": "Invalid IP",
+            "no_agreement": "You did not agree to the TOS",
+            "unknown": "Unknown Exception"
+        },
+        "abort": {
+            "already_configured": "This device has already been configured"
+        }
+    }
+}

@@ -6,7 +6,7 @@ from .const import DOMAIN
 
 from . import access_server
 
-PLATFORMS = [Platform.COVER]
+PLATFORMS = [Platform.SENSOR]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = access_server.AccessServer(hass, entry.data["ip"])

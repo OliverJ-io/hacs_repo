@@ -57,4 +57,4 @@ class ASCamera(Camera):
         return self._panel.online and self._panel.server.online
 
     async def stream_source(self) -> str | None:
-        return "https://nasa-i.akamaihd.net/hls/live/253565/NTV-Public1/master.m3u8"
+        return "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from homeassistant.components.camera import Camera
+from homeassistant.components.camera import Camera, CameraEntityFeature
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -22,6 +22,8 @@ async def async_setup_entry(
     async_add_entities([ASCamera(panel) for panel in acs.panels])
 
 class ASCamera(Camera):
+
+    _attr_supported_features = CameraEntityFeature.STREAM
 
     def __init__(self, panel: AccessPanel):
         self._panel = panel

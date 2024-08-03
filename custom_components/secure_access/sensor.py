@@ -4,14 +4,14 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.helpers.entity import Entity
 
 from .const import DOMAIN
+from .access_server import AccessServer, AccessPanel
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
-    access_server = hass.data[DOMAIN][config_entry.entry_id]
+    access_server: AccessServer = hass.data[DOMAIN][config_entry.entry_id]
 
     new_devices = []
-    for panel in access_server.panels:
-        new_devices.append(DoorSensor(panel))
-        new_devices.append(BypassSensor(panel))
+    new_devices.append(DoorSensor(AccessPanel(f"testingonly_1", f"Panel 1", access_server)))
+    new_devices.append(BypassSensor(AccessPanel(f"testingonly_1", f"Panel 1", access_server)))
     if new_devices:
         async_add_entities(new_devices)
 

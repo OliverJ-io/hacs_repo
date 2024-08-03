@@ -12,6 +12,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DOMAIN
+from .access_server import AccessPanel, AccessServer
 
 
 async def async_setup_entry(
@@ -22,10 +23,10 @@ async def async_setup_entry(
     """Add cover for passed config_entry in HA."""
     # The hub is loaded from the associated hass.data entry that was created in the
     # __init__.async_setup_entry function
-    hub = hass.data[DOMAIN][config_entry.entry_id]
+    acs: AccessServer = hass.data[DOMAIN][config_entry.entry_id]
 
     # Add all entities to HA
-    async_add_entities(ASCamera(panel) for panel in hub.panel)
+    async_add_entities(ASCamera(AccessPanel(f"testingonly_1", f"Panel 1", acs)))
 
 class ASCamera(Camera):
 

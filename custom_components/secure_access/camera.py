@@ -23,10 +23,12 @@ async def async_setup_entry(
 
 class ASCamera(MjpegCamera):
 
+    _attr_has_entity_name = True
+
     def __init__(self, panel: AccessPanel):
-        self._panel = panel
+        super().__init__(
+            mjpeg_url="http://80.56.142.202:83/mjpg/video.mjpg?camera=1",
+            still_image_url="http://80.56.142.202:83/mjpg/video.mjpg?camera=1&timestamp=1722723200017"
+        )
         self._attr_unique_id = f"{self._panel.panel_id}_camera"
-        self._attr_name = self._panel.name
-    
-    async def stream_source(self) -> str:
-        return "http://80.56.142.202:83/mjpg/video.mjpg?camera=1"
+        self._attr_name = panel.name

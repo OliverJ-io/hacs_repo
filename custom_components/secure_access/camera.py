@@ -28,7 +28,7 @@ class ASCamera(MjpegCamera):
     def __init__(self, panel: AccessPanel):
         super().__init__(
             mjpeg_url="http://80.56.142.202:83/mjpg/video.mjpg?camera=1",
-            still_image_url="http://80.56.142.202:83/mjpg/video.mjpg?camera=1&timestamp=1722723200017"
+            still_image_url="http://oliverj.io/img/desert.jpg"
         )
         self._attr_unique_id = f"{panel.panel_id}_camera"
         self._attr_name = panel.name

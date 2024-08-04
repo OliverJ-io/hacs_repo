@@ -7,7 +7,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.config_entries import ConfigEntry
 
 from .const import DOMAIN
-from .access_server import AccessServer
+from .access_server import AccessServer, AccessPanel
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities: AddEntitiesCallback):
     access_server: AccessServer = hass.data[DOMAIN][config_entry.entry_id]
@@ -22,7 +22,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry, asyn
 class SensorBase(BinarySensorEntity):
     should_poll = False
 
-    def __init__(self, panel):
+    def __init__(self, panel: AccessPanel):
         self._panel = panel
 
     @property
@@ -54,10 +54,9 @@ class DoorSensor(SensorBase):
         return self._panel.door_state
 
 class BypassSensor(SensorBase):
-    _attr_device_class = BinarySensorDeviceClass.SAFETY
-    _attr_name = "Bypass Sensor"
+    device_class = BinarySensorDeviceClass.SAFETY
     
-    def __init__(self, panel):
+    def __init__(self, panel: AccessPanel):
         super().__init__(panel)
 
         self._attr_unique_id = f"{self._panel.panel_id}_bypass"

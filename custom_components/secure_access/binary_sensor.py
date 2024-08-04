@@ -47,7 +47,7 @@ class DoorSensor(SensorBase):
 
         self._attr_unique_id = f"{self._panel.panel_id}_lock"
         self._attr_name = f"{self._panel.name} Locked"
-        #self._state = self._panel.door_state
+        self._state = self._panel.door_state
     
     @property
     def state(self):
@@ -61,7 +61,7 @@ class BypassSensor(SensorBase):
 
         self._attr_unique_id = f"{self._panel.panel_id}_bypass"
         self._attr_name = f"{self._panel.name} Bypassed"
-        #self._state = self._panel.is_bypassed
+        self._state = self._panel.is_bypassed
     
     @property
     def state(self):

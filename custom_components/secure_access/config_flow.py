@@ -8,13 +8,16 @@ from typing import Any
 import logging
 
 import voluptuous as vol
+import ipaddress
 
 _LOGGER = logging.getLogger(__name__)
 
 DATA_SCHEMA = vol.Schema({vol.Required("ip"): str, vol.Optional("checkbox"): bool})
 
 async def validate_input(hass: HomeAssistant, data: dict) -> dict[str, Any]:
-    if len(data["ip"]) < 7:
+    try:
+        ip = ipaddress.ip_address(data["ip"])
+    except ValueError:
         raise InvalidIp
     
     if data["checkbox"] == False:

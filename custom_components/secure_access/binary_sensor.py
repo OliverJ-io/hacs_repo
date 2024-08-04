@@ -27,7 +27,7 @@ class SensorBase(BinarySensorEntity):
 
     @property
     def device_info(self):
-        return {"identifers": {(DOMAIN, self._panel.panel_id)}}
+        return {"identifiers": {(DOMAIN, self._panel.panel_id)}}
     
     @property
     def available(self) -> bool:
